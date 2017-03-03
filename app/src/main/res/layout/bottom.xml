@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<Button
+    android:layout_weight="1"
+    android:background="@mipmap/talk"
+    android:text="会话"
+    android:id="@+id/talk"
+    android:layout_width="66dp"
+    android:layout_height="66dp"
+    android:textSize="35px"
+
+    />
+
+    <Button
+android:layout_weight="1"
+        android:background="@mipmap/d2"
+        android:text=""
+        android:id="@+id/directory"
+        android:textColor="#61f2f1f1"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        />
+    <Button
+        android:id="@+id/find"
+        android:background="@mipmap/find"
+        android:layout_weight="1"
+        android:layout_width="66dp"
+        android:layout_height="66dp" />
+    <Button
+        android:id="@+id/yourself"
+        android:background="@mipmap/i1"
+        android:layout_weight="1"
+        android:layout_width="66dp"
+        android:layout_height="66dp" />
+</LinearLayout>

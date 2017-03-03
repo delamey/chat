@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+<android.support.design.widget.CoordinatorLayout
+
+    android:id="@+id/activity_socket"
+    android:layout_width="match_parent"
+    android:layout_height="500dp">
+<com.example.dell.chat.title
+    android:id="@+id/toolbar2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</com.example.dell.chat.title>
+
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/socket_RecyclerView"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:layout_marginBottom="11dp">
+
+</android.support.v7.widget.RecyclerView>
+    <EditText
+        android:layout_marginTop="400dp"
+        android:hint="请输入"
+        android:textAllCaps="false"
+        android:id="@+id/EditText1"
+        android:maxLines="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_marginTop="450dp"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:text="SendText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button" />
+</android.support.design.widget.CoordinatorLayout>
+    <com.example.dell.chat.bottom
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.example.dell.chat.bottom>
+</LinearLayout>
