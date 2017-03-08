@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<com.example.dell.chat.title
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:id="@+id/AccountText"
+        android:layout_marginTop="200dp"
+        android:text="账号:"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+
+        android:layout_marginLeft="20dp"
+
+        android:id="@+id/PasswordText"
+        android:layout_marginTop="255dp"
+        android:text="Password:"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_toRightOf="@+id/AccountText"
+        android:layout_marginTop="200dp"
+        android:id="@+id/AccountEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+       />
+    <EditText
+        android:layout_toRightOf="@+id/PasswordText"
+        android:layout_marginTop="245dp"
+        android:id="@+id/PasswordEdit"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_marginLeft="45dp"
+        android:layout_below="@+id/PasswordEdit"
+        android:id="@+id/ZhuCe"
+        android:text="注册"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="登录"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@id/PasswordEdit"
+        android:layout_toRightOf="@+id/ZhuCe"
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

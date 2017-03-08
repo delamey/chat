@@ -10,16 +10,11 @@
 
     </com.example.dell.chat.title>
 <ListView
-    android:layout_gravity="center"
+    android:layout_gravity="bottom"
     android:id="@+id/directory_listView"
     android:layout_width="match_parent"
-    android:layout_height="450dp">
+    android:layout_height="500dp">
 
 </ListView>
-    <com.example.dell.chat.bottom
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    </com.example.dell.chat.bottom>
 </android.support.design.widget.CoordinatorLayout>

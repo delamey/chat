@@ -9,7 +9,7 @@
 
     android:id="@+id/activity_socket"
     android:layout_width="match_parent"
-    android:layout_height="500dp">
+    android:layout_height="565dp">
 <com.example.dell.chat.title
     android:id="@+id/toolbar2"
     android:layout_width="match_parent"
@@ -26,8 +26,10 @@
     android:layout_marginBottom="11dp">
 
 </android.support.v7.widget.RecyclerView>
+
+
     <EditText
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="480dp"
         android:hint="请输入"
         android:textAllCaps="false"
         android:id="@+id/EditText1"
@@ -36,17 +38,13 @@
         android:layout_height="wrap_content" />
     <Button
         android:layout_marginTop="450dp"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom"
         android:textAllCaps="false"
         android:text="SendText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button" />
+
 </android.support.design.widget.CoordinatorLayout>
-    <com.example.dell.chat.bottom
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </com.example.dell.chat.bottom>
 </LinearLayout>

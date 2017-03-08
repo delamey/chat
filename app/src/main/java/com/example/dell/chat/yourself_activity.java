@@ -45,6 +45,7 @@ public class yourself_activity extends AppCompatActivity {
         mlocationClient = new LocationClient(getApplicationContext());
         mlocationClient.registerLocationListener(new MyLocationListener());
         toolbar= (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("个人定位");
 
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();

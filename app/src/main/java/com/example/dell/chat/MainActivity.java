@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ import java.util.Random;
 import static com.baidu.mapapi.BMapManager.getContext;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button button,find,directory,talk;
+    private ImageView button,find,directory,talk;
     private Toolbar toolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -53,17 +54,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.toolbar);
-        button = (Button) findViewById(R.id.yourself);
+        button = (ImageView) findViewById(R.id.yourself);
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         navigationView= (NavigationView) findViewById(R.id.nav_view);
         drawerLayout= (DrawerLayout) findViewById(R.id.drawer_layout);
         swipeRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        find= (Button) findViewById(R.id.find);
+        find= (ImageView) findViewById(R.id.find);
         find.setOnClickListener(this);
-        directory= (Button) findViewById(R.id.directory);
+        directory= (ImageView) findViewById(R.id.directory);
         directory.setOnClickListener(this);
-        talk= (Button) findViewById(R.id.talk);
+        talk= (ImageView) findViewById(R.id.talk);
         talk.setOnClickListener(this);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

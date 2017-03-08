@@ -32,6 +32,7 @@ ArrayAdapter<String> adapter;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directory);
         toolbar= (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("通讯录");
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         if (actionBar!=null){

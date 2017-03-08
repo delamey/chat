@@ -39,17 +39,12 @@
 
     <!--</LinearLayout>-->
     <!--</android.support.v4.widget.NestedScrollView>-->
-    <com.example.dell.chat.bottom
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        />
+
 
     <com.baidu.mapapi.map.MapView
         android:layout_gravity="center"
         android:id="@+id/bmapView"
-        android:layout_height="452dp"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:clickable="true"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -1,38 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-<Button
-    android:layout_weight="1"
-    android:background="@mipmap/talk"
-    android:text="会话"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+<ImageView
+    android:layout_gravity="center"
+    android:clickable="true"
+    android:scaleType="centerCrop"
+    android:src="@mipmap/talk"
     android:id="@+id/talk"
-    android:layout_width="66dp"
-    android:layout_height="66dp"
-    android:textSize="35px"
+    android:layout_width="60dp"
+    android:layout_height="60dp" />
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp"
+            android:textColor="#050505"
+            android:text="会话"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <ImageView
 
-    />
-
-    <Button
-android:layout_weight="1"
-        android:background="@mipmap/d2"
-        android:text=""
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/d2"
         android:id="@+id/directory"
-        android:textColor="#61f2f1f1"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         />
-    <Button
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:textColor="#050505"
+            android:textSize="12dp"
+            android:text="通讯录"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:clickable="true"
+        android:layout_gravity="center"
         android:id="@+id/find"
-        android:background="@mipmap/find"
+        android:src="@mipmap/find"
+        android:scaleType="centerCrop"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:textColor="#050505"
+            android:textSize="12dp"
+            android:text="数据"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_weight="1"
-        android:layout_width="66dp"
-        android:layout_height="66dp" />
-    <Button
-        android:id="@+id/yourself"
-        android:background="@mipmap/i1"
-        android:layout_weight="1"
-        android:layout_width="66dp"
-        android:layout_height="66dp" />
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:clickable="true"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:id="@+id/yourself"
+            android:src="@mipmap/i1"
+            android:layout_weight="1"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:textColor="#050505"
+            android:textSize="12dp"
+            android:text="定位"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
 </LinearLayout>

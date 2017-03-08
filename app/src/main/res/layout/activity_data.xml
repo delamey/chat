@@ -34,10 +34,6 @@
         android:text="add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <com.example.dell.chat.bottom
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
 
-    </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>
