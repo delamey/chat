@@ -1,5 +1,6 @@
 package com.example.dell.chat;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -26,40 +27,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Socket1 extends AppCompatActivity  {
-private Button  send;
+    private Button send;
     private Toolbar toolbar;
-//private TextView textView9;
-    private List<Msg> msgList=new ArrayList<>();
+    //private TextView textView9;
+    private List<Msg> msgList = new ArrayList<>();
     private TalkAdapter talkAdapter;
     private RecyclerView recyclerView;
- private EditText editText;
- private   static final int GET=1;
+    private EditText editText;
+    private static final int GET = 1;
     Socket s = null;
     String out2;
-    String in ;
+    String in;
+    String inn;
+
+String Myname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_socket);
+        Intent intent = getIntent();
+          Myname = intent.getStringExtra("name");
+        //String Mypassword = intent.getStringExtra("password");
         editText = (EditText) findViewById(R.id.EditText1);
         //textView9 = (TextView) findViewById(R.id.text9);
-        recyclerView= (RecyclerView) findViewById(R.id.socket_RecyclerView);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        recyclerView = (RecyclerView) findViewById(R.id.socket_RecyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        talkAdapter=new TalkAdapter(msgList);
+        talkAdapter = new TalkAdapter(msgList);
         recyclerView.setAdapter(talkAdapter);
-        toolbar= (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar=getSupportActionBar();
-        if (actionBar!=null){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         send = (Button) findViewById(R.id.button);
+        //send.setOnClickListener(this);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    s = new Socket("192.168.1.108", 9999);
+                    s = new Socket("192.168.1.109", 9999);
                     ClientThread thread = new ClientThread(s);
                     thread.start();
                 } catch (IOException e) {
@@ -75,22 +84,26 @@ private Button  send;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        //BufferedReader br=new BufferedReader(new InputStreamReader(s.getInputStream()));
                         try {
-                            //BufferedReader br=new BufferedReader(new InputStreamReader(s.getInputStream()));
                             PrintWriter out=new PrintWriter(s.getOutputStream());
                             in= editText.getText().toString();
-                            out2 =in;
-                                    //String s1=br.readLine();
+                            out2 ="say,"+Myname+","+Myname+","+in;
                             out.println(out2);
                             out.flush();
                             Message message = new Message();
                             message.what = 2;
                             message.obj=in;
                             handler.sendMessage(message);
-
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
+                        //String s1=br.readLine();
+                       // inn= Http.sendPost("http://10.0.2.2:8080/chat2/Talk","Myname="+Myname+"&yourname="+Myname+"&message="+in);
+
+
+
                     }
                 }).start();
             }
@@ -137,6 +150,8 @@ private Handler handler=new Handler(){
         return true;
     }
 
+
+
     public class ClientThread extends Thread {
 
         private Socket socket;
@@ -180,4 +195,7 @@ private Handler handler=new Handler(){
             }
         }
     }
-}
+    }
+
+
+

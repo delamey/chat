@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import static com.example.dell.chat.MyApplication.getContext;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,18 +29,24 @@ private Toolbar toolbar;
             switch (msg.what){
                 case 1:
                     String R=msg.obj.toString();
-                    if (R=="true"){
+                    if (R.equals("true")){
                   Toast.makeText(getApplicationContext(),"注册成功，请登录",Toast.LENGTH_SHORT).show();
+                        password.setText("");
+                        account.setText("");
               }else {
                   Toast.makeText(getApplicationContext(),"注册失败，账号或者密码已经存在",Toast.LENGTH_SHORT).show();
               }
               break;
                 case 2:
                     String R1=msg.obj.toString();
-                    if (R1=="true"){
-                  Toast.makeText(getContext(),"注册成功，请登录",Toast.LENGTH_SHORT).show();
+                    if (R1.equals("true")){
+                  Toast.makeText(getContext(),"登录成功",Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("name",account.getText().toString());
+                        //intent.putExtra("password",password.getText().toString());
+                        startActivity(intent);
               }else {
-                  Toast.makeText(getContext(),"注册失败，账号或者密码已经存在",Toast.LENGTH_SHORT).show();
+                  Toast.makeText(getContext(),"登录失败，请重新登录",Toast.LENGTH_SHORT).show();
               }
               break;
                 default:
@@ -71,7 +80,7 @@ private Toolbar toolbar;
                     public void run() {
                         passwordString=password.getText().toString();
                         accountString=account.getText().toString();
-                        String receive= Http.sendPost("http://localhost:8080/chat2/Register","name="+accountString+"&"+"password="+passwordString);
+                        String receive= Http.sendPost("http://10.0.2.2:8080/chat2/Register","name="+accountString+"&"+"password="+passwordString);
                         Message message=new Message();
                         message.obj=receive;
                         message.what=1;
@@ -89,7 +98,7 @@ private Toolbar toolbar;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String receive1= Http.sendPost("http://localhost:8080/chat/login","name="+accountString+"&"+"password="+passwordString);
+                        String receive1= Http.sendPost("http://10.0.2.2:8080/chat2/Login","name="+accountString+"&"+"password="+passwordString);
                         Message message=new Message();
                         message.obj=receive1;
                         message.what=2;

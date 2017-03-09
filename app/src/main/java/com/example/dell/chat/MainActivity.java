@@ -50,10 +50,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Fruit[] fruits={new Fruit("1111",R.mipmap.p1),new Fruit("2222",R.mipmap.p2),new Fruit("3333",R.mipmap.p3),new Fruit("4444",R.mipmap.p4),new Fruit("5555",R.mipmap.p5),new Fruit("6666",R.mipmap.p6)};
     private List<Fruit>  fruitList=new ArrayList<>();
     private  FruitAdapter  adapter;
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.toolbar);
+        Intent intent=getIntent();
+         name=intent.getStringExtra("name");
+        //String password=intent.getStringExtra("password");
         button = (ImageView) findViewById(R.id.yourself);
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter=new FruitAdapter(fruitList);
         recyclerView.setAdapter(adapter);
         button.setOnClickListener(this);
+
 
         floatingActionButton= (FloatingActionButton) findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(this);
@@ -172,6 +177,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.talk:
                 Intent intent3=new Intent(MainActivity.this,Socket1.class);
+                intent3.putExtra("name",name);
+               //intent3.putExtra("password",password);
+
                 startActivity(intent3);
             default:
                 break;
