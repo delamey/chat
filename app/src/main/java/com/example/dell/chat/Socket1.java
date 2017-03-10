@@ -123,8 +123,7 @@ private Handler handler=new Handler(){
                 break;
             case 2:
                 String content1= msg.obj.toString();
-                String str []=content1.split(",");
-                Msg msg2=new Msg(str[3],Msg.TYPE_SENT);
+                Msg msg2=new Msg(content1,Msg.TYPE_SENT);
                 msgList.add(msg2);
                 talkAdapter.notifyItemInserted(msgList.size()-1);
                 recyclerView.scrollToPosition(msgList.size()-1);
@@ -178,11 +177,6 @@ private Handler handler=new Handler(){
                                 message.what=GET;
                                 handler.sendMessage(message);
                                 break;
-                            case "name":
-                                Message message1=new Message();
-                                message1.obj=str[1].toString();
-                                message1.what=GET;
-                                handler.sendMessage(message1);
                             default:
                                 break;
                         }
