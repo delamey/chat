@@ -14,6 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.baidu.location.a.r;
+import com.baidu.platform.comapi.map.n;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -68,7 +72,7 @@ String Myname;
             @Override
             public void run() {
                 try {
-                    s = new Socket("192.168.1.109", 9999);
+                    s = new Socket("192.168.1.110", 9999);
                     ClientThread thread = new ClientThread(s);
                     thread.start();
                 } catch (IOException e) {
@@ -86,10 +90,12 @@ String Myname;
                     public void run() {
                         //BufferedReader br=new BufferedReader(new InputStreamReader(s.getInputStream()));
                         try {
-                            PrintWriter out=new PrintWriter(s.getOutputStream());
+                            BufferedWriter out=new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
                             in= editText.getText().toString();
-                            out2 ="say,"+Myname+","+Myname+","+in;
-                            out.println(out2);
+                            out2 ="say,"+Myname+","+Myname+","+in+"\n";
+
+//                            out.println(out2);
+                            out.write(out2);
                             out.flush();
                             Message message = new Message();
                             message.what = 2;

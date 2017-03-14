@@ -98,7 +98,9 @@ private Toolbar toolbar;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String receive1= Http.sendPost("http://10.0.2.2:8080/chat2/Login","name="+accountString+"&"+"password="+passwordString);
+                        passwordString=password.getText().toString();
+                        accountString=account.getText().toString();
+                        String receive1= Http.sendPost("http://192.168.1.110:8080/chat2/Login","name="+accountString+"&"+"password="+passwordString);
                         Message message=new Message();
                         message.obj=receive1;
                         message.what=2;
