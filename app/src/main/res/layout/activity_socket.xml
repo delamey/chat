@@ -27,9 +27,30 @@
 
 </android.support.v7.widget.RecyclerView>
 
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.design.widget.FloatingActionButton
+    android:visibility="visible"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="20dp"
+    android:id="@+id/QieHuan"
+    android:layout_marginBottom="35dp"
+    android:layout_gravity="bottom|right">
+</android.support.design.widget.FloatingActionButton>
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:id="@+id/QieHuan1"
+        android:layout_marginBottom="35dp"
+        android:layout_gravity="bottom|right">
+    </android.support.design.widget.FloatingActionButton>
     <EditText
-        android:layout_marginTop="480dp"
+        android:visibility="visible"
+        android:layout_marginTop="500dp"
         android:hint="请输入"
         android:textAllCaps="false"
         android:id="@+id/EditText1"
@@ -37,13 +58,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
-        android:layout_marginTop="450dp"
+        android:visibility="visible"
+        android:layout_marginLeft="60dp"
+        android:gravity="center"
+        android:layout_marginTop="530dp"
         android:layout_gravity="bottom"
         android:textAllCaps="false"
         android:text="SendText"
-        android:layout_width="match_parent"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:id="@+id/button" />
+    <com.example.dell.chat.AudioRecordButton
+        android:visibility="gone"
+        android:id="@+id/recorder_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="530dp"
+        android:layout_marginBottom="7dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/str_recorder_normal"
+        android:textColor="#727272"
+        android:minHeight="0dp"
+        android:background="@drawable/btn_recorder_normal">
+    </com.example.dell.chat.AudioRecordButton>
+    <View
+        android:visibility="gone"
+        android:layout_marginTop="529dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ccc">
+
+    </View>
+</FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
 

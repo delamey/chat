@@ -1,8 +1,10 @@
 package com.example.dell.chat;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +36,13 @@ import java.util.List;
 public class Socket1 extends AppCompatActivity  {
     private Button send;
     private Toolbar toolbar;
+    private FloatingActionButton fb,fb1;
     //private TextView textView9;
     private List<Msg> msgList = new ArrayList<>();
     private TalkAdapter talkAdapter;
     private RecyclerView recyclerView;
     private EditText editText;
+    private AudioRecordButton audioRecordButton;
     private static final int GET = 1;
     Socket s = null;
     String out2;
@@ -45,6 +50,25 @@ public class Socket1 extends AppCompatActivity  {
     String inn;
 
 String Myname;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MediaManager.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MediaManager.release();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MediaManager.resume();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +82,7 @@ String Myname;
         recyclerView = (RecyclerView) findViewById(R.id.socket_RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        talkAdapter = new TalkAdapter(msgList);
+        talkAdapter = new TalkAdapter(this,msgList);
         recyclerView.setAdapter(talkAdapter);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,13 +90,48 @@ String Myname;
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        fb1= (FloatingActionButton) findViewById(R.id.QieHuan1);
+        fb1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editText.setVisibility(View.VISIBLE);
+                send.setVisibility(View.VISIBLE);
+                fb.setVisibility(View.VISIBLE);
+                fb1.setVisibility(View.GONE);
+                audioRecordButton.setVisibility(View.GONE);
+
+            }
+        });
+        audioRecordButton= (AudioRecordButton) findViewById(R.id.recorder_button);
+        audioRecordButton.setAudioFinishRecorderListener(new AudioRecordButton.AudioFinishRecorderListener() {
+            @Override
+            public void onFinish(float seconds, String filePath) {
+                Msg msg=new Msg(filePath,seconds,Msg.TYPE_SENT_YUYIN);
+                msgList.add(msg);
+                talkAdapter.notifyItemInserted(msgList.size()-1);
+                recyclerView.scrollToPosition(msgList.size()-1);
+
+            }
+        });
+
+        fb= (FloatingActionButton) findViewById(R.id.QieHuan);
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              audioRecordButton.setVisibility(View.VISIBLE);
+                editText.setVisibility(View.GONE);
+                send.setVisibility(View.GONE);
+                fb.setVisibility(View.GONE);
+                fb1.setVisibility(View.VISIBLE);
+            }
+        });
         send = (Button) findViewById(R.id.button);
         //send.setOnClickListener(this);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    s = new Socket("192.168.1.110", 9999);
+                    s = new Socket("192.168.1.105", 9999);
                     ClientThread thread = new ClientThread(s);
                     thread.start();
                 } catch (IOException e) {
@@ -93,8 +152,6 @@ String Myname;
                             BufferedWriter out=new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
                             in= editText.getText().toString();
                             out2 ="say,"+Myname+","+Myname+","+in+"\n";
-
-//                            out.println(out2);
                             out.write(out2);
                             out.flush();
                             Message message = new Message();
@@ -195,6 +252,8 @@ private Handler handler=new Handler(){
             }
         }
     }
+
+
     }
 
 

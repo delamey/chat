@@ -80,7 +80,7 @@ private Toolbar toolbar;
                     public void run() {
                         passwordString=password.getText().toString();
                         accountString=account.getText().toString();
-                        String receive= Http.sendPost("http://10.0.2.2:8080/chat2/Register","name="+accountString+"&"+"password="+passwordString);
+                        String receive= Http.sendPost("http://192.168.1.108:8080/chat2/Register","name="+accountString+"&"+"password="+passwordString);
                         Message message=new Message();
                         message.obj=receive;
                         message.what=1;
@@ -100,7 +100,7 @@ private Toolbar toolbar;
                     public void run() {
                         passwordString=password.getText().toString();
                         accountString=account.getText().toString();
-                        String receive1= Http.sendPost("http://192.168.1.110:8080/chat2/Login","name="+accountString+"&"+"password="+passwordString);
+                        String receive1= Http.sendPost("http://192.168.1.108:8080/chat2/Login","name="+accountString+"&"+"password="+passwordString);
                         Message message=new Message();
                         message.obj=receive1;
                         message.what=2;

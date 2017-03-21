@@ -15,8 +15,8 @@
     android:scaleType="centerCrop"
     android:src="@mipmap/talk"
     android:id="@+id/talk"
-    android:layout_width="60dp"
-    android:layout_height="60dp" />
+    android:layout_width="50dp"
+    android:layout_height="50dp" />
         <TextView
             android:layout_gravity="center_horizontal"
             android:textSize="12sp"
@@ -37,8 +37,8 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/d2"
         android:id="@+id/directory"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         />
         <TextView
             android:layout_gravity="center_horizontal"
@@ -59,8 +59,8 @@
         android:id="@+id/find"
         android:src="@mipmap/find"
         android:scaleType="centerCrop"
-        android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
         <TextView
             android:layout_gravity="center_horizontal"
             android:textColor="#050505"
@@ -82,8 +82,8 @@
             android:id="@+id/yourself"
             android:src="@mipmap/i1"
             android:layout_weight="1"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <TextView
             android:layout_gravity="center_horizontal"

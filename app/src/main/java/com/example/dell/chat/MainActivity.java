@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.talk:
                 Intent intent3=new Intent(MainActivity.this,Socket1.class);
-                intent3.putExtra("name",name);
+              //  intent3.putExtra("name",name);
                //intent3.putExtra("password",password);
 
                 startActivity(intent3);
