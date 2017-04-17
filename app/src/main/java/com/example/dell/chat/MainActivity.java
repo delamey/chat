@@ -33,6 +33,8 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -176,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }).show();
                 break;
             case R.id.talk:
-                Intent intent3=new Intent(MainActivity.this,Socket1.class);
-              //  intent3.putExtra("name",name);
+                Intent intent3=new Intent(MainActivity.this,talkHttp.class);
+                 intent3.putExtra("name",name);
                //intent3.putExtra("password",password);
 
                 startActivity(intent3);
@@ -186,4 +188,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        information information=new information();
+//        information.setName(name);
+//        information.setRemeber("false");
+//        information.save();
+//    }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        information information=new information();
+//        information.setName(name);
+//        information.setRemeber("false");
+//        information.save();
+//    }
 }

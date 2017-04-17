@@ -107,6 +107,7 @@ String Myname;
             @Override
             public void onFinish(float seconds, String filePath) {
                 Msg msg=new Msg(filePath,seconds,Msg.TYPE_SENT_YUYIN);
+
                 msgList.add(msg);
                 talkAdapter.notifyItemInserted(msgList.size()-1);
                 recyclerView.scrollToPosition(msgList.size()-1);
@@ -131,7 +132,7 @@ String Myname;
             @Override
             public void run() {
                 try {
-                    s = new Socket("192.168.1.105", 9999);
+                    s = new Socket("192.168.1.104", 9999);
                     ClientThread thread = new ClientThread(s);
                     thread.start();
                 } catch (IOException e) {
@@ -214,7 +215,7 @@ private Handler handler=new Handler(){
 
 
 
-    public class ClientThread extends Thread {
+    private class ClientThread extends Thread {
 
         private Socket socket;
         public ClientThread(Socket socket) {

@@ -83,7 +83,7 @@ public class TalkAdapter extends RecyclerView.Adapter <TalkAdapter.ViewHolder>{
             holder.leftLayout.setVisibility(View.GONE);
             holder.rightLayout.setVisibility(View.VISIBLE);
             holder.rightMsg.setText((int) msg.getTime());
-            ViewGroup.LayoutParams lp=holder.viewRight.getLayoutParams();
+            ViewGroup.LayoutParams lp=holder.viewLeft.getLayoutParams();
             lp.width= (int) (mMinItemWidth+(mMaxItemWidth/60f*msg.getTime()));
         }
     }

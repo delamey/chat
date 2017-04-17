@@ -20,20 +20,39 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:textSize="25sp"
+        android:text="头像"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/photo"
+        android:background="@drawable/imageview"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="65dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp" />
     <Button
-        android:layout_gravity="center"
-        android:text="dataCreate"
-        android:textAllCaps="false"
-        android:id="@+id/create"
+
+        android:background="@drawable/button"
+        android:text="拍照"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="110dp"
+        android:id="@+id/take_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
-        android:layout_gravity="end"
-        android:id="@+id/add"
-        android:textAllCaps="false"
-        android:text="add"
+        android:background="@drawable/button"
+        android:text="相册"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="60dp"
+        android:id="@+id/select_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    t" />
 
 
 </android.support.design.widget.CoordinatorLayout>

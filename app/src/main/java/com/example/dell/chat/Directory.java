@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Directory extends AppCompatActivity  {
-    private Toolbar toolbar;
-ArrayAdapter<String> adapter;
-    List<String> contactsList =new ArrayList<>();
+     private Toolbar toolbar;
+    private ArrayAdapter<String> adapter;
+    private List<String> contactsList =new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +59,7 @@ ArrayAdapter<String> adapter;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CALL_PHONE},2);
         }else {
-            readContacts();
+          //  readContacts();
         }
     }
 
@@ -74,7 +74,7 @@ ArrayAdapter<String> adapter;
                 }
             case 2:
                 if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    readContacts();
+                   // readContacts();
                 }else {
                     Toast.makeText(this,"You denied the permission",Toast.LENGTH_SHORT).show();
                 }
@@ -95,13 +95,21 @@ ArrayAdapter<String> adapter;
 
     private void readContacts() {
         Cursor cursor = null;
-        cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+        cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.Contacts._ID}, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                contactsList.add(number);
+                int id = cursor.getInt(cursor.getColumnIndex("_id"));
+                Cursor c1=getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER},ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + id,null,null);
+                if (c1!=null){
+                    while(c1.moveToNext()) {
+                        String number = c1.getString(c1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        contactsList.add(number);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
             }
-            adapter.notifyDataSetChanged();
+
         }if(cursor!=null){
              cursor.close();
         }

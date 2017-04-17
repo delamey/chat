@@ -1,6 +1,7 @@
 package com.example.dell.chat;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -12,8 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 
 import static com.example.dell.chat.MyApplication.getContext;
 
@@ -23,6 +28,8 @@ private Toolbar toolbar;
     private Button register,login;
     String passwordString;
     String accountString;
+//    String RemeberName;
+//    private boolean isRemeber=false;
     Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -40,7 +47,14 @@ private Toolbar toolbar;
                 case 2:
                     String R1=msg.obj.toString();
                     if (R1.equals("true")){
-                  Toast.makeText(getContext(),"登录成功",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"登录成功",Toast.LENGTH_SHORT).show();
+//                        isRemeber=true;
+                        information information=new information();
+                        information.setName(account.getText().toString());
+                        information.setPassword(password.getText().toString());
+                        information.setRemeber("true");
+                        information.save();
+//                        RemeberName=account.getText().toString();
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                         intent.putExtra("name",account.getText().toString());
                         //intent.putExtra("password",password.getText().toString());
@@ -49,6 +63,12 @@ private Toolbar toolbar;
                   Toast.makeText(getContext(),"登录失败，请重新登录",Toast.LENGTH_SHORT).show();
               }
               break;
+                case 3:
+                    Toast.makeText(getContext(),"登录成功",Toast.LENGTH_SHORT).show();
+//                    isRemeber=true;
+                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                    intent.putExtra("name",account.getText().toString());
+                    startActivity(intent);
                 default:
                     break;
 
@@ -68,6 +88,17 @@ private Toolbar toolbar;
         login= (Button) findViewById(R.id.loginButton);
         register.setOnClickListener(this);
         login.setOnClickListener(this);
+        LitePal.getDatabase();
+        List<information>  informationList=DataSupport.where("remeber=?","true").find(information.class);
+        for(information in:informationList){
+            String name= in.getName();
+            Intent intent=new Intent(this,MainActivity.class);
+            intent.putExtra("name",name);
+            startActivity(intent);
+
+
+
+        }
         //Http.sendPost("http://localhost:8080/chat/Register","name="+accountString+"&"+"password="+passwordString);
     }
 
@@ -80,7 +111,7 @@ private Toolbar toolbar;
                     public void run() {
                         passwordString=password.getText().toString();
                         accountString=account.getText().toString();
-                        String receive= Http.sendPost("http://192.168.1.108:8080/chat2/Register","name="+accountString+"&"+"password="+passwordString);
+                        String receive= Http.sendPost("http://192.168.1.106:8080/chat2/Register","name="+accountString+"&"+"password="+passwordString);
                         Message message=new Message();
                         message.obj=receive;
                         message.what=1;
@@ -100,11 +131,22 @@ private Toolbar toolbar;
                     public void run() {
                         passwordString=password.getText().toString();
                         accountString=account.getText().toString();
-                        String receive1= Http.sendPost("http://192.168.1.108:8080/chat2/Login","name="+accountString+"&"+"password="+passwordString);
-                        Message message=new Message();
-                        message.obj=receive1;
-                        message.what=2;
-                        handler.sendMessage(message);
+                       List<information> list=DataSupport.select("name").where("name=?",accountString).find(information.class);
+                        if (list==null){
+                            information information=new information();
+                            information.setName(accountString);
+                            information.setRemeber("true");
+                            information.save();
+                            Message message=new Message();
+                            message.what=3;
+                            handler.sendMessage(message);
+                        } else {
+                            String receive1 = Http.sendPost("http://192.168.1.106:8080/chat2/Login", "name=" + accountString + "&" + "password=" + passwordString);
+                            Message message = new Message();
+                            message.obj = receive1;
+                            message.what = 2;
+                            handler.sendMessage(message);
+                        }
                     }
                 }).start();
                break;
