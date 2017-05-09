@@ -39,7 +39,7 @@ public  static  final String FRUIT_NAME="fruit_name";
         }
         collapsingToolbarLayout.setTitle(fruitName);
         Glide.with(this).load(fruitImageId).into(imageView);
-       textView.setText(fruitName);
+        textView.setText(fruitName);
     }
 
     @Override

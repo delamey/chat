@@ -5,19 +5,25 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
+import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInput;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,12 +34,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
+import static com.baidu.location.d.j.b;
 import static com.baidu.location.d.j.s;
 import static com.example.dell.chat.MyApplication.getContext;
 
@@ -53,16 +61,28 @@ private Button zhuce,login;
                     PasswordEdit.setText("");
                     break;
                 case 1:
-                    String str=msg.obj.toString();
-                    parseXMLWithSAX(str);
+                    byte[] re= (byte[]) msg.obj;
+                    try {
+                        String str3=new String(re,"UTF-8");
+                        String[] str1=str3.split("<");
+                        parseXMLWithSAX("<"+str1[1]);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
                     break;
                 case 2:
                     String str2=msg.obj.toString();
                     if (str2.equals("ok")){
-                        Intent intent=new Intent(getContext(),MainActivity.class);
+                        Intent intent=new Intent(Login.this,MainActivity.class);
                         intent.putExtra("name",test);
                         startActivity(intent);
+
                     }
+                    break;
+                case 3:
+                    String s=msg.obj.toString();
+                    test=s;
                     break;
                 default:
                     break;
@@ -100,6 +120,7 @@ private Button zhuce,login;
         login= (Button) findViewById(R.id.loginButton1);
         AccountEdit= (EditText) findViewById(R.id.AccountEdit1);
         PasswordEdit= (EditText) findViewById(R.id.PasswordEdit1);
+        LitePal.getDatabase();
         login.setOnClickListener(this);
         new Thread(new Runnable() {
             @Override
@@ -126,6 +147,10 @@ private Button zhuce,login;
                     public void run() {
                         test=AccountEdit.getText().toString();
                         password=PasswordEdit.getText().toString();
+                        Message message=new Message();
+                        message.what=3;
+                        message.obj=test;
+                        handler.sendMessage(message);
                         String xml=null;
                         try {
                            DataOutputStream dataOutputStream=new DataOutputStream(socket.getOutputStream());
@@ -139,10 +164,14 @@ private Button zhuce,login;
 //                            FileWriter fileWriter=new FileWriter(file);
 //                            fileWriter.write(xml);
 //                            DataOutputStream dataOutputStream=new DataOutputStream(socket.getOutputStream());
-                           BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                            writer.write(xml);
-                            writer.flush();
-//                            dataOutputStream.write(data,0,data.length);
+                           // BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                            byte[] b={0x0c,0,0,0,(byte)xml.length(),0,0,0,0x06,0,0,0};
+                            dataOutputStream.write(b);
+                            dataOutputStream.write(data);
+                            dataOutputStream.flush();
+                            //dataOutputStream.close();
+                            //writer.flush();
+//                            dataOutputStream.write   (data,0,data.length);
                             handler.sendEmptyMessage(0);
                             thread.start();
                         } catch (IOException e) {
@@ -164,20 +193,29 @@ private Button zhuce,login;
         }
         public void run(){
             String source = null;
-            String len;
-            String stringBuilder="";
+            int len;
+//            String stringBuilder="";
             InputStream inputStream = null;
+            byte [] b=new byte[1024];
             try {
-                inputStream = socket.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(
-                        inputStream);
-                BufferedReader br = new BufferedReader(inputStreamReader);
-                while ((len=br.readLine())!=null){
-                    source+=len;
-                }
+                DataInputStream in=new DataInputStream(socket.getInputStream());
+                in.read(b);
+
+
+//                inputStream = socket.getInputStream();
+//                InputStreamReader inputStreamReader = new InputStreamReader(
+//                        inputStream,"UTF-8");
+//                BufferedReader br = new BufferedReader(inputStreamReader);
+//                source=br.readLine();
+////                while (( in.read(b))!=-1){
+//                    source=new String(b,0,b.length);
+//                }
+
+               // in.close();
+
                 Message message=new Message();
                 message.what=1;
-                message.obj=source;
+                message.obj=b;
                 handler.sendMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -186,4 +224,74 @@ private Button zhuce,login;
 
         }
     }
+
+
+    /**
+     * Created by root on 2017/4/12.
+     */
+
+     class ContentHandler extends DefaultHandler {
+        private String nodeName;
+        // private StringBuilder id;
+        //private StringBuilder name;
+        //private StringBuilder version;
+        private String type;
+
+
+        @Override
+        public void startDocument() throws SAXException {
+            // id=new StringBuilder();
+            // name=new StringBuilder();
+            // version=new StringBuilder();
+
+        }
+
+        @Override
+        public void endDocument() throws SAXException {
+            super.endDocument();
+        }
+
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
+            if (localName.equals("iq")) {
+                int i = 1;
+                type = attributes.getValue(i);
+                Message message = new Message();
+                message.what=2;
+                message.obj = type;
+                handler.sendMessage(message);
+            }
+
+
+        }
+
+        @Override
+        public void endElement(String uri, String localName, String qName) throws SAXException {
+//        if ("app".equals(localName)){
+//            Log.d("ContentHandler","id is"+id.toString().trim());
+//            Log.d("ContentHandler","name is"+name.toString().trim());
+//            Log.d("ContentHandler","version is"+version.toString().trim());
+//            id.setLength(0);
+//            name.setLength(0);
+//            version.setLength(0);
+//        }
+            if ("iq".equals(localName)) {
+                Log.d("ContentHandler","type is"+type.trim());
+            }
+        }
+
+        @Override
+        public void characters(char[] ch, int start, int length) throws SAXException {
+//        if ("id".equals(nodeName)){
+//            id.append(ch,start,length);
+//        }else  if ("name".equals(nodeName)){
+//            name.append(ch,start,length);
+//
+//        }else if ("version".equals(nodeName)){
+//            version.append(ch,start,length);
+//        }
+        }
+    }
+
 }
